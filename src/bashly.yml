@@ -1,0 +1,31 @@
+name: devin
+help: Development tools
+version: 0.1.0
+
+commands:
+  - name: pr-ai
+    help: Create a PR with AI
+
+    flags:
+      - long: --base
+        short: -b
+        arg: base
+        default: main
+        help: Base branch
+
+    examples:
+      - devin pr-ai
+      - devin pr-ai --base master
+
+    environment_variables:
+      - name: N8N_WEBHOOK_URL
+        default: http://localhost:5678/webhook/auto-pr-title-and-description
+        help: URL of the webhook
+
+    dependencies:
+      - jq
+      - gh
+      - curl
+      - base64
+      - git
+      - glow
