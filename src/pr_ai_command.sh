@@ -3,11 +3,7 @@ set -euo pipefail
 # Default values
 BASE_BRANCH="${args[--base]}"
 
-# Validate git repository
-if ! git rev-parse --git-dir > /dev/null 2>&1; then
-    echo "❌ Not in a git repository"
-    exit 1
-fi
+validate_git_repository
 
 # Get current branch
 CURRENT_BRANCH="$(git symbolic-ref --short HEAD)"
