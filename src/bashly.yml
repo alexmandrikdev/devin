@@ -29,3 +29,24 @@ commands:
       - base64
       - git
       - glow
+
+  - name: commit-ai
+    help: Create a commit with AI
+
+    args:
+      - name: description
+        help: Optional description for the changes
+
+    examples:
+      - devin commit-ai
+      - devin commit-ai "Fix bug"
+
+    environment_variables:
+      - name: N8N_WEBHOOK_URL
+        default: http://localhost:5678/webhook/auto-commit
+        help: URL of the webhook
+
+    dependencies:
+      - git
+      - jq
+      - curl
