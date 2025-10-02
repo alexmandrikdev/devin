@@ -50,6 +50,12 @@ commits=$(
     exit 1
 }
 
+# Check if there are actual commits
+if [ -z "$commits" ] || [ "$commits" == "Cg==" ]; then
+    echo "👉 No commits detected compared to origin/$BASE_BRANCH"
+    exit 0
+fi
+
 # Get repository path
 repo_path=$(git rev-parse --show-toplevel)
 
