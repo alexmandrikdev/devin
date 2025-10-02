@@ -88,3 +88,17 @@ commands:
     examples:
       - devin wip-branch-create
       - devin wip-branch-create --base master
+
+  - name: rebase-updated
+    help: Rebase current branch onto updated base branch
+
+    flags:
+      - long: --base
+        short: -b
+        arg: base
+        default: main
+        help: Base branch
+
+    examples:
+      - devin rebase-updated
+      - devin rebase-updated --base master
