@@ -131,7 +131,7 @@ echo "$description" | glow -
 echo "---"
 
 # Get user confirmation
-echo -e "🤔 Accept PR? (y/n/e) "
+echo -n "🤔 Accept PR? (y/n/e) "
 read -r answer
 
 case "$answer" in

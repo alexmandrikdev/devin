@@ -20,7 +20,7 @@ diff="$(get_staged_changes)"
 
 # Check if there are actual changes
 if [ -z "$diff" ] || [ "$diff" == "Cg==" ]; then
-    echo -n "🤔 No staged changes found. Do you want to commit all changes? (y/n)"
+    echo -n "🤔 No staged changes found. Do you want to commit all changes? (y/n) "
     read -r answer
 
     if [[ "$answer" != "y" && "$answer" != "Y" && "$answer" != "yes" ]]; then
