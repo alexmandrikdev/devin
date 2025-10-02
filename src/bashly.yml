@@ -74,3 +74,17 @@ commands:
       - git
       - jq
       - curl
+
+  - name: wip-branch-create
+    help: Create a work in progress branch
+
+    flags:
+      - long: --base
+        short: -b
+        arg: base
+        default: main
+        help: Base branch
+
+    examples:
+      - devin wip-branch-create
+      - devin wip-branch-create --base master
