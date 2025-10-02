@@ -50,3 +50,27 @@ commands:
       - git
       - jq
       - curl
+
+  - name: branch-ai
+    help: Create branches with AI
+
+    flags:
+      - long: --base
+        short: -b
+        arg: base
+        default: main
+        help: Base branch
+
+    examples:
+      - devin branch-ai
+      - devin branch-ai --base master
+
+    environment_variables:
+      - name: N8N_WEBHOOK_URL
+        default: http://localhost:5678/webhook/auto-branch
+        help: URL of the webhook
+
+    dependencies:
+      - git
+      - jq
+      - curl
