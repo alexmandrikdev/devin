@@ -3,6 +3,11 @@ help: Development tools
 version: 0.1.0
 
 commands:
+  - name: completions
+    help: |-
+      Generate bash completions
+      Usage: eval "\$(devin completions)"
+
   - name: pr-ai
     help: Create a PR with AI
 
@@ -12,6 +17,8 @@ commands:
         arg: base
         default: main
         help: Base branch
+        completions:
+          - $(git branch --format='%(refname:short)' 2>/dev/null)
 
     examples:
       - devin pr-ai
@@ -60,6 +67,8 @@ commands:
         arg: base
         default: main
         help: Base branch
+        completions:
+          - $(git branch --format='%(refname:short)' 2>/dev/null)
 
     examples:
       - devin branch-ai
@@ -84,6 +93,8 @@ commands:
         arg: base
         default: main
         help: Base branch
+        completions:
+          - $(git branch --format='%(refname:short)' 2>/dev/null)
 
     examples:
       - devin wip-branch-create
@@ -98,6 +109,8 @@ commands:
         arg: base
         default: main
         help: Base branch
+        completions:
+          - $(git branch --format='%(refname:short)' 2>/dev/null)
 
     examples:
       - devin rebase-updated
