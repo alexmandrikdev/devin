@@ -1,5 +1,5 @@
 #!/bin/bash
 
-bashly generate
+bashly generate --upgrade
 
 sudo cp ./devin /usr/local/bin/devin
