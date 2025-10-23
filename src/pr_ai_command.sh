@@ -20,8 +20,8 @@ if ! git ls-remote --exit-code origin "$BASE_BRANCH" > /dev/null 2>&1; then
     exit 1
 fi
 
-# Get diff compared to base branch
-echo "👉 Getting changes compared to origin/$BASE_BRANCH..."
+# Get diff compared to base branch (excluding lock files)
+echo "👉 Getting changes compared to origin/$BASE_BRANCH (excluding lock files)..."
 diff=$(git diff "origin/$BASE_BRANCH".."$CURRENT_BRANCH" -- . \
     ':(exclude)package-lock.json' \
     ':(exclude)yarn.lock' \
@@ -34,8 +34,29 @@ diff=$(git diff "origin/$BASE_BRANCH".."$CURRENT_BRANCH" -- . \
 
 # Check if there are actual changes
 if [ -z "$diff" ] || [ "$diff" == "Cg==" ]; then
-    echo "👉 No changes detected compared to origin/$BASE_BRANCH"
-    exit 0
+    echo "👉 No changes detected in source code compared to origin/$BASE_BRANCH"
+    echo "👉 Checking for changes in lock files..."
+    
+    # Get only changed file names (not the actual diff content)
+    changed_files=$(git diff --name-only "origin/$BASE_BRANCH".."$CURRENT_BRANCH" -- . 2>/dev/null) || {
+        echo "❌ Failed to get changed files list compared to origin/$BASE_BRANCH"
+        exit 1
+    }
+    
+    # Check again if there are actual changes
+    if [ -z "$changed_files" ]; then
+        echo "👉 No changes detected compared to origin/$BASE_BRANCH"
+        exit 0
+    else
+        echo "👉 Changes detected in the following files:"
+        echo "$changed_files"
+        
+        # Create a simplified diff that only contains file names
+        diff=$(echo -e "Changed files compared to origin/$BASE_BRANCH:\n==============================================\n$changed_files" | base64 -w 0) || {
+            echo "❌ Failed to prepare file list diff"
+            exit 1
+        }
+    fi
 fi
 
 # Get commit history
