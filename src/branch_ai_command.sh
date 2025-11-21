@@ -1,6 +1,7 @@
 set -euo pipefail
 
 BASE_BRANCH="${args[--base]}"
+THINKING_FLAG="${args[--thinking]:-false}"
 
 validate_git_repository
 
@@ -46,9 +47,11 @@ repo_path=$(git rev-parse --show-toplevel)
 json_payload=$(jq -n \
     --arg commits "$commits" \
     --arg repo_path "$repo_path" \
+    --argjson thinking "$THINKING_FLAG" \
     '{
       "commits": $commits,
-      "repo_path": $repo_path
+      "repo_path": $repo_path,
+      "thinking": $thinking
     }') || {
     echo "❌ Failed to prepare JSON payload"
     exit 1

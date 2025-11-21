@@ -69,10 +69,14 @@ commands:
         help: Base branch
         completions:
           - $(git branch --format='%(refname:short)' 2>/dev/null)
+      - long: --thinking
+        short: -t
+        help: Enable verbose AI reasoning output
 
     examples:
       - devin branch-ai
       - devin branch-ai --base master
+      - devin branch-ai --thinking
 
     environment_variables:
       - name: N8N_WEBHOOK_URL
