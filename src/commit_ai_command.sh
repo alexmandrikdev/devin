@@ -115,4 +115,7 @@ else
     }
 fi
 
+commit_hash=$(git rev-parse HEAD)
+
 echo "✅ Done"
+echo "🔗 Commit hash: $commit_hash"
